@@ -12,4 +12,5 @@ read yn
 case $yn in
     o ) php app/console doctrine:schema:update --force;;
     n ) exit;;
+    * ) echo "les choix possibles sont (o/n)";;
 esac
