@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. ./sms_parametres.sh
+. /home/pi/gitSh/sms_parametres.sh
 
 date=`date`
 message="Sms envoyé depuis mon Raspberry Pi le $date"
