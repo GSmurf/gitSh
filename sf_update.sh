@@ -1,6 +1,7 @@
 #!/bin/sh
 sudo chmod 775 ./app/cache * -R
-php /var/www/html/composer.phar install
+sudo rm app/cache/dev -R
+sudo php ../composer.phar install
 sudo chmod 775 ./app/cache * -R
 sudo chown www-data:www-data ./* -R
 echo "----------------------------------------------------------------"
