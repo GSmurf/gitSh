@@ -1,32 +1,30 @@
 #!/bin/sh
 
 # Initialise les diodes
-gpio mode 0 out
-gpio mode 1 out
-gpio mode 2 out
-gpio write 1 0
-gpio write 2 0
+sudo gpio mode 0 out
+sudo gpio mode 1 out
+sudo gpio mode 2 out
+sudo gpio write 1 0
+sudo gpio write 2 0
 
-
-# si un utilisateur est connecté au ssh allume le gpio 2 (rouge) 
 nb=$(who | wc -l)
-echo il y à $nb connexions
-
-if [ $nb = '2' ] 
-then
-  gpio write 2 1
-elif [ $nb = '1' ]
-then
-  gpio write 1 1
-else
-  gpio write 1 0
-  gpio write 2 0
-fi
-
-# si quelqu'un est sur le serveur apache allume le gpio 0 (vert) 
+date=$(date '+%Y-%m-%d %H:%M:%S')
 
 
+# Recupere l'heure de la derniere connexion qui ne soit pas du à 127.0.0.1 sur les 50 derniers acces d'apache
+lastConnection=$(tail -n 50 /var/log/apache2/access.log | grep -v 127.0.0 | awk '{print substr($4,14,length($4))}' | tail -n 1)
 
-# un cron executera un script shell toutes les minutes qui parsera le log d'apache 
-# et fera un who et avec les grep correct s'il trouve les bonnes valeut lancera la fonction gpio avec tel ou tel parametre
-# ifconfig eth0 | awk '/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/ {print substr($2,5,length($2))}'
+case $nb in
+  1)
+	# si un utilisateur est connecté au ssh allume le gpio 2 (rouge) 
+	sudo gpio write 1 1
+	echo "$date : 1 connexion SSH, derniere connexion à apache : $lastConnection"
+	;;
+  2)
+	# si un utilisateur est connecté au ssh allume le gpio 1 (jaune) 
+	sudo gpio write 2 1
+	echo "$date : 2 connexions SSH, derniere connexion à apache : $lastConnection"
+	;;
+  *)
+	;;
+esac
