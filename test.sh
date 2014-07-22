@@ -1,29 +1,13 @@
 #!/bin/sh
-
-# si un utilisateur est connecté au ssh allume le gpio 2 (rouge) 
 nb=$(who | wc -l)
-echo il y à $nb connexions
+d=$(date '+%H:%M:%S')
+l=$(tail -n 50 /var/log/apache2/access.log | grep -v 127.0.0 | awk '{print substr($4,14,length($4))}' | tail -n 1)
 
-if [ $nb = 2 ] 
+echo "apache : $l, date : $d"
+
+if $l = '23:47:06' 
 then
-  echo "2 connexions"
-elif [ $nb = 1 ]
-then
-  echo "1 connexion"
+	echo "oui"
 else
-  echo "autres connexions"
+	echo "non"
 fi
-
-echo Test avec case
-
-case $nb in
-  1)
-	echo "1 connexion"
-	;;
-  2)
-	echo "2 connexions"
-	;;
-  *)
-	echo "X connexions"
-	;;
-esac
