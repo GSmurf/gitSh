@@ -28,3 +28,8 @@ case $nb in
   *)
 	;;
 esac
+
+if [ $lastConnection = '11:27:58'] 
+then 
+	echo "oui" 
+fi
