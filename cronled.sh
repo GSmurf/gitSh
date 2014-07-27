@@ -1,13 +1,19 @@
 #!/bin/bash
 
+# ------------------------------------------------
+# Initialisation de variables
+# ------------------------------------------------
 fichierLog="/home/pi/logs/cron_led.log"
 verte=0
 rouge=2
 jaune=1
 
+# ------------------------------------------------
+# Fonctions
+# ------------------------------------------------
 function initLed {
 	for i in $verte $jaune $rouge
-	do
+	do	
 	  sudo gpio mode $i out
 	done
 }
@@ -40,7 +46,9 @@ function allumeLedEteindAutres {
   done
 }
 
-
+# ------------------------------------------------
+# Main
+# ------------------------------------------------
 # Initialise les diodes
 initLed
 
@@ -77,8 +85,7 @@ then
 		echo "$date : $nb connexion(s) SSH, apache : $lastConnexion ($diff sec)" >> $fichierLog
 		who >> $fichierLog
 	fi
-else
-	# Eteind tout si aucun des cas n'est présent
-	eteindToutes
+	else
+		# Eteind tout si aucun des cas n'est présent
+		eteindToutes
 fi
-
