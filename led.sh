@@ -22,9 +22,10 @@ function eteindLed {
 # Main
 # ------------------------------------------------
 # Si aucun paramètre n'est passé alors renvoi une erreur
-if [ $# < 1 ] then
-  echo "Ce Script doit être appelé avec des paramètres au format :"
-  echo "led GPIO tempsAllumé  tempsEteind ..."
+if [ $# -lt 1 ] 
+then
+  echo "led: opérande manquant"
+  echo 'Saisissez « led GPIO tempsAllumé  tempsEteind ... » pour faire fonctionner ce scipt.'
   exit
 fi
 
