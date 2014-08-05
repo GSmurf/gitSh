@@ -25,7 +25,7 @@ function eteindLed {
 if [ $# -lt 1 ] 
 then
   echo "led: opérande manquant"
-  echo 'Saisissez « led GPIO tempsAllumé  tempsEteind ... » pour faire fonctionner ce scipt.'
+  echo 'Saisissez « /led.sh GPIO tempsAllumé  tempsEteind ... » pour faire fonctionner ce script.'
   exit
 fi
 
