@@ -1,18 +1,11 @@
 #!/bin/bash
-
-# initialise la led avec le premier parametre
-# par du status que la led est au debut etteinte l'allume x sec du parametre 1
+# Pars du status que la led est au debut et etteinte l'allume x sec le GPIO du parametre 1
 # puis l'etteinds x sec du parametre 2 etc ...
-
-
 # ------------------------------------------------
 # Fonctions
 # ------------------------------------------------
 function initLed {
-        for i in $verte $jaune $rouge
-        do
-          sudo gpio mode $i out
-        done
+  sudo gpio mode $1 out
 }
 
 function allumeLed {
@@ -28,6 +21,12 @@ function eteindLed {
 # ------------------------------------------------
 # Main
 # ------------------------------------------------
+# Si aucun paramètre n'est passé alors renvoi une erreur
+if [ $# < 1 ] then
+  echo "Ce Script doit être appelé avec des paramètres au format :"
+  echo "led GPIO tempsAllumé  tempsEteind ..."
+  exit
+fi
 
 # initialise la led avec le premier parametre
 initLed $1
