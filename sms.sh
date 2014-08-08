@@ -2,7 +2,7 @@
 
 . /home/pi/gitSh/sms_parametres.sh
 
-date=$(date '+%A %d/%m/%Y à %H:%M:%S')
+infoServeur=$(uptime)
 
 # si le parametre 1 est --help alors affiche l'aide
 if [ "$1" = "--help" ]
@@ -15,9 +15,9 @@ fi
 # Utilise le parametre 1 comme message s'il est transmit
 if [ $# = 1 ] 
 then
-  message="$1 $date"
+  message="$1 $infoServeur"
 else
-  message="Sms envoyé depuis mon Raspberry Pi le $date"
+  message="Sms automatique envoyé depuis mon Raspberry Pi le $infoServeur"
 fi
 
 # execute l'envoi de sms avec l'api de free
@@ -31,8 +31,9 @@ then
 	echo "erreur :"
 	tmp.log >> /home/pi/logs/cron_sms.log
 else
-	echo "sms bien envoyé ;) avec les message : $message"
+	echo "Sms envoyé, avec le message : $message"
 fi 
 
 # suppression du fichier temp
 rm tmp.log
+
